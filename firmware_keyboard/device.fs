@@ -20,6 +20,7 @@ variable wLength
 variable expect-report
 
 variable data-crc
+variable tgl-badcrc
 variable data-pid
 
 ROM
@@ -125,9 +126,17 @@ ROM
     ( keypress ) h# 0 dup txbuf-c! +crc
     ( keypress ) h# 0 dup txbuf-c! +crc
     ( keypress ) h# 0 dup txbuf-c! +crc
+    tgl-badcrc @ if
+      data-crc @ 1+ data-crc !
+      h# 0 tgl-badcrc !
+    else
+      h# 1 tgl-badcrc !
+    then
     set-crc
     txbuf-wait-empty
-    ack?  if  epi1-pid data-toggle  then ;
+    ack? if 
+      epi1-pid data-toggle 
+    then ;
 
 \ ======================================================================
 \ OUT token processing

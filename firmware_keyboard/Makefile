@@ -1,7 +1,7 @@
 # Create firmware
 
-#FORTH = /usr/local/opt/SwiftForth/bin/osx/sf
-FORTH = gforth
+FORTH = sf
+#FORTH = gforth
 
 VPATH = ../J1_WB/j1_forth
 
